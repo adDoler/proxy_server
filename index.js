@@ -11,7 +11,6 @@ app.use((req, res, next) => {
     next();
 });
 app.get('/', (req, res) => {
-
     try {
         const query = Url.parse(req.url, true).query;
         const source = atob(query.source);
@@ -21,8 +20,8 @@ app.get('/', (req, res) => {
         req.pipe(request(source)).pipe(res);    
     } catch (error) {
         console.log(error);
+        res.status(500).send('Internal Server Error');
     }
-    
 });
 
 app.listen(port, () => {
